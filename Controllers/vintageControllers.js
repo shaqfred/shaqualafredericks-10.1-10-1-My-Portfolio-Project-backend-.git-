@@ -3,10 +3,6 @@ const vintages = express.Router();
 
 const { getAllVintage } = require("../Controllers/queries/vintage.js");
 
-vintages.get("/", (request, response) => {
-  response.json({ status: ok });
-});
-
 vintages.get("/", async (request, response) => {
   const allVintage = await getAllVintage();
 

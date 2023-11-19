@@ -9,7 +9,7 @@ app.use(express());
 app.use("/vintages", vintageControllers);
 
 app.get("/", (request, response) => {
-  response.status("Welcome to Project Vintage");
+  response.status(200).send("Welcome to Project Vintage");
 });
 app.get("*", (request, response) => {
   response.status(404).send("Page not found");
