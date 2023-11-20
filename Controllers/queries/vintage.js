@@ -8,4 +8,32 @@ const getAllVintage = async () => {
     return error;
   }
 };
-module.exports = { getAllVintage };
+const createVintage = async (vintage) => {
+  try {
+    const newVintage = await db.one(
+      "INSERT INTO vintages (name,style,category,price,isfavorite)VALUES($1, $2, $3, $4) RETURNING *",
+      [
+        vintage.name,
+        vintage.stye,
+        vintage.category,
+        vintage.price,
+        vintage.isfavorite,
+      ]
+    );
+    return newVintage;
+  } catch (error) {
+    return error;
+  }
+};
+const getVintageItemByID = async (id) => {
+  try {
+    const oneVintage = await db.oneOrNone(
+      "SELECT * FROM vintages WHERE id=$1",
+      id
+    );
+    return oneVintage;
+  } catch (error) {
+    return error;
+  }
+};
+module.exports = { getAllVintage, createVintage, getVintageItemByID };
