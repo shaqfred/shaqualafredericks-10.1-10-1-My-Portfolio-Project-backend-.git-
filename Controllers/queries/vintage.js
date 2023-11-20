@@ -11,10 +11,10 @@ const getAllVintage = async () => {
 const createVintage = async (vintage) => {
   try {
     const newVintage = await db.one(
-      "INSERT INTO vintages (name,style,category,price,isfavorite)VALUES($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO vintages (name,style,category,price,isfavorite)VALUES($1, $2, $3, $4, $5) RETURNING *",
       [
         vintage.name,
-        vintage.stye,
+        vintage.style,
         vintage.category,
         vintage.price,
         vintage.isfavorite,
@@ -36,4 +36,20 @@ const getVintageItemByID = async (id) => {
     return error;
   }
 };
-module.exports = { getAllVintage, createVintage, getVintageItemByID };
+const deleteVintage = async (id) => {
+  try {
+    const deleteVintage = await db.one(
+      "DELETE FROM vintages WHERE id = $1 RETURNING *",
+      id
+    );
+    return deleteVintage;
+  } catch (error) {
+    return error;
+  }
+};
+module.exports = {
+  getAllVintage,
+  createVintage,
+  getVintageItemByID,
+  deleteVintage,
+};

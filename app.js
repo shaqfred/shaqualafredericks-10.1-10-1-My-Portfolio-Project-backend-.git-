@@ -5,7 +5,7 @@ const app = express();
 const vintageControllers = require("../backend/Controllers/vintageControllers.js");
 
 app.use(cors());
-app.use(express());
+app.use(express.json());
 app.use("/vintages", vintageControllers);
 
 app.get("/", (request, response) => {

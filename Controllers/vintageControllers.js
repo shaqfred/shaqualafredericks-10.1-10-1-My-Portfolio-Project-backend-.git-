@@ -5,9 +5,10 @@ const {
   getAllVintage,
   createVintage,
   getVintageItemByID,
+  deleteVintage,
 } = require("../Controllers/queries/vintage.js");
 
-const { checkName } = require("../validations/checkVintage.js");
+// const { checkName } = require("../validations/checkVintage.js");
 
 vintages.get("/", async (request, response) => {
   const allVintage = await getAllVintage();
@@ -32,7 +33,18 @@ vintages.get("/:id", async (request, response) => {
 vintages.post("/", async (request, response) => {
   const body = request.body;
   const vintage = await createVintage(body);
+  // console.log(vintage);
   response.status(200).json(vintage);
+});
+
+vintages.delete("/:id", async (request, response) => {
+  const { id } = request.params;
+  const deletedVintage = await deleteVintage(id);
+  if (deletedVintage.id) {
+    res.status(200).json(deletedVintage);
+  } else {
+    response.status(404).json({ error: "not found" });
+  }
 });
 
 module.exports = vintages;
